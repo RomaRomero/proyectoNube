@@ -25,7 +25,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
         return new User(
                 usuario.getCorreo(),
-                usuario.getContraseña(),
+                usuario.getClave(),
                 usuario.getRoles().stream()
                         .map(r -> new SimpleGrantedAuthority("ROLE_" + r.getNombre()))
                         .collect(Collectors.toList())

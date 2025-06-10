@@ -18,7 +18,7 @@ public class TUsuario {
 
     private String nombre;
     private String correo;
-    private String contraseña;
+    private String clave;
 
     @ManyToMany
     @JoinTable(name = "usuario_rol",

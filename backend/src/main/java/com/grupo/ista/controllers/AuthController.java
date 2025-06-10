@@ -6,7 +6,6 @@ import com.grupo.ista.services.UsuarioService;
 import com.grupo.ista.util.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.*;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
@@ -30,14 +29,14 @@ public class AuthController {
     @PostMapping("/login")
     public String login(@RequestBody TUsuario request) {
         authManager.authenticate(
-                new UsernamePasswordAuthenticationToken(request.getCorreo(), request.getContraseña())
+                new UsernamePasswordAuthenticationToken(request.getCorreo(), request.getClave())
         );
         return jwtUtil.generarToken(request.getCorreo());
     }
 
     @PostMapping("/register")
     public TUsuario registrar(@RequestBody TUsuario usuario) {
-        usuario.setContraseña(passwordEncoder.encode(usuario.getContraseña()));
+        usuario.setClave(passwordEncoder.encode(usuario.getClave()));
         return usuarioService.registrarUsuario(usuario);
     }
 }
