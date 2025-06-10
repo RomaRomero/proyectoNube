@@ -1,7 +1,7 @@
 export const environment = {
   production: false,
   apiUrl: 'https://api.staging.miproyecto.com/api',
-  firebaseConfig: {
+  firebaseConfig:{
     apiKey: "AIzaSyCzSRmhQ-5Y8TkMaJpXB3q-YcUYFw06nDA",
     authDomain: "push-fit.firebaseapp.com",
     projectId: "push-fit",

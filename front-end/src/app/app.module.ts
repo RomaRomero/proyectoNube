@@ -11,7 +11,7 @@ import { DashboardComponent } from './features/auth/pages/dashboard/dashboard.co
 import { LoginComponent } from './features/auth/pages/login/login.component';
 import { FormsModule } from '@angular/forms';
 import { environment } from '../environments/environment';
-import { AngularFireMessagingModule } from '@angular/fire/messaging';
+import { provideMessaging, getMessaging } from '@angular/fire/messaging';
 @NgModule({
   declarations: [],
   imports: [
@@ -23,7 +23,7 @@ import { AngularFireMessagingModule } from '@angular/fire/messaging';
     DashboardComponent,
     HttpClientModule,
     provideFirebaseApp(() => initializeApp(environment.firebaseConfig)),  // Initialize Firebase with your configuration
-    AngularFireMessagingModule,  // Importa el módulo de mensajería de Firebase
+    provideCustomMessaging(() => getMessaging()),
     RouterModule.forRoot(routes)
   ],
   providers: [
@@ -31,3 +31,7 @@ import { AngularFireMessagingModule } from '@angular/fire/messaging';
   ],
 })
 export class AppModule {}
+function provideCustomMessaging(factory: () => any): any {
+  return provideFirebaseApp(factory);
+}
+
