@@ -26,9 +26,4 @@ public class TUsuario {
             inverseJoinColumns = @JoinColumn(name = "rol_id"))
     private List<TRol> roles;
 
-    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
-    private List<TRutina> rutinas;
-
-    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL)
-    private List<TRegistroActividad> registros;
 }

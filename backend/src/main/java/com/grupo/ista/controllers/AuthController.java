@@ -5,13 +5,15 @@ import com.grupo.ista.services.UsuarioService;
 
 import com.grupo.ista.util.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.*;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/auth")
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins = "http://localhost:4200")
 public class AuthController {
 
     @Autowired
@@ -26,17 +28,20 @@ public class AuthController {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    @PostMapping("/login")
-    public String login(@RequestBody TUsuario request) {
-        authManager.authenticate(
-                new UsernamePasswordAuthenticationToken(request.getCorreo(), request.getClave())
-        );
-        return jwtUtil.generarToken(request.getCorreo());
-    }
+@PostMapping("/login")
+public String login(@RequestBody TUsuario request) {
+    authManager.authenticate(
+        new UsernamePasswordAuthenticationToken(request.getCorreo(), request.getClave())
+    );
+    return jwtUtil.generarToken(request.getCorreo());
+}
 
-    @PostMapping("/register")
-    public TUsuario registrar(@RequestBody TUsuario usuario) {
-        usuario.setClave(passwordEncoder.encode(usuario.getClave()));
-        return usuarioService.registrarUsuario(usuario);
-    }
+
+  @PostMapping("/register")
+public ResponseEntity<?> registrar(@RequestBody TUsuario usuario) {
+    usuario.setClave(passwordEncoder.encode(usuario.getClave()));
+    TUsuario registrado = usuarioService.registrarUsuario(usuario);
+    return ResponseEntity.status(HttpStatus.CREATED).body(registrado);
+}
+
 }

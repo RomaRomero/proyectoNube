@@ -1,0 +1,6 @@
+<h2>Login</h2>
+<form (ngSubmit)="login()" #loginForm="ngForm">
+  <input type="email" name="correo" [(ngModel)]="correo" placeholder="Correo" required />
+  <input type="password" name="contraseña" [(ngModel)]="clave" placeholder="Contraseña" required />
+  <button type="submit" [disabled]="loginForm.invalid">Ingresar</button>
+</form>
