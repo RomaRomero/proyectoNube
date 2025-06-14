@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+<<<<<<< HEAD
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 
@@ -32,4 +33,13 @@ register(data: any) {
     localStorage.removeItem('token');
     this.router.navigate(['/login']);
   }
+=======
+
+@Injectable({
+  providedIn: 'root'
+})
+export class AuthService {
+
+  constructor() { }
+>>>>>>> c4b8ca0 (avance proyecto)
 }
