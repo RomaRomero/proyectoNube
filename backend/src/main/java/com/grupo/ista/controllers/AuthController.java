@@ -2,7 +2,6 @@ package com.grupo.ista.controllers;
 
 import com.grupo.ista.models.TUsuario;
 import com.grupo.ista.services.UsuarioService;
-
 import com.grupo.ista.util.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -29,19 +28,26 @@ public class AuthController {
     private PasswordEncoder passwordEncoder;
 
 @PostMapping("/login")
-public String login(@RequestBody TUsuario request) {
-    authManager.authenticate(
-        new UsernamePasswordAuthenticationToken(request.getCorreo(), request.getClave())
-    );
-    return jwtUtil.generarToken(request.getCorreo());
+public ResponseEntity<?> login(@RequestBody TUsuario request) {
+    try {
+        authManager.authenticate(
+            new UsernamePasswordAuthenticationToken(request.getCorreo(), request.getClave())
+        );
+        String token = jwtUtil.generarToken(request.getCorreo());
+        return ResponseEntity.ok(token);
+    } catch (BadCredentialsException ex) {
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Credenciales incorrectas");
+    } catch (Exception ex) {
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Error: " + ex.getMessage());
+    }
 }
 
 
-  @PostMapping("/register")
-public ResponseEntity<?> registrar(@RequestBody TUsuario usuario) {
-    usuario.setClave(passwordEncoder.encode(usuario.getClave()));
-    TUsuario registrado = usuarioService.registrarUsuario(usuario);
-    return ResponseEntity.status(HttpStatus.CREATED).body(registrado);
-}
 
+    @PostMapping("/register")
+    public ResponseEntity<?> registrar(@RequestBody TUsuario usuario) {
+        usuario.setClave(passwordEncoder.encode(usuario.getClave()));
+        TUsuario registrado = usuarioService.registrarUsuario(usuario);
+        return ResponseEntity.status(201).body(registrado);
+    }
 }
