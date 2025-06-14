@@ -5,30 +5,21 @@ import java.util.List;
 
 import org.hibernate.annotations.CreationTimestamp;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToMany;
-import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
+import jakarta.persistence.*;
+import lombok.*;
 
 @Entity
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "rol")
+@Table(name = "roles")
 public class TRol {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String nombre; // "USUARIO", "ENTRENADOR", "ADMIN"
+    private String nombre; // Ej: "USUARIO", "ENTRENADOR"
 
     @ManyToMany(mappedBy = "roles")
     private List<TUsuario> usuarios;
@@ -41,7 +32,4 @@ public class TRol {
         this.nombre = nombre;
         this.fechaCreacion = LocalDateTime.now();
     }
-
-    
-
 }

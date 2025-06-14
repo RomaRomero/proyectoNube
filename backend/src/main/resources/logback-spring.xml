@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true" scanPeriod="30 seconds">
+
+    <!-- Propiedades -->
+    <property name="LOG_PATTERN" value="%d{yyyy-MM-dd HH:mm:ss} %-5level [%thread] %logger{36} - %msg%n" />
+    <property name="LOG_FILE" value="logs/notificaciones.log" />
+    <property name="LOG_LEVEL" value="DEBUG" />
+
+    <!-- Archivo de log rotativo diario -->
+    <appender name="File" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_FILE}</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>logs/notificaciones-%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>15</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>${LOG_PATTERN}</pattern>
+        </encoder>
+    </appender>
+
+    <!-- Logger raíz sin consola -->
+    <root level="${LOG_LEVEL}">
+        <appender-ref ref="File" />
+    </root>
+
+    <!-- Logging específico para Spring, MongoDB y Firebase -->
+    <logger name="org.springframework" level="INFO"/>
+    <logger name="org.mongodb.driver" level="WARN"/>
+    <logger name="com.google.firebase" level="WARN"/>
+
+</configuration>
