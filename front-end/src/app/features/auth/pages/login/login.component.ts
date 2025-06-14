@@ -4,11 +4,12 @@
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
-
+import { ButtonModule } from 'primeng/button';
+import { DividerModule } from 'primeng/divider';
   @Component({
     selector: 'app-login',
     templateUrl: './login.component.html',
-    imports:[CommonModule,FormsModule,HttpClientModule],
+    imports: [CommonModule, FormsModule, HttpClientModule, ButtonModule,DividerModule],
     styleUrls: ['./login.component.css']
   })
   export class LoginComponent {

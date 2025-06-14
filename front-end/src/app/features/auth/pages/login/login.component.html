@@ -1,6 +1,58 @@
 <h2>Login</h2>
 <form (ngSubmit)="login()" #loginForm="ngForm">
-  <input type="email" name="correo" [(ngModel)]="correo" placeholder="Correo" required />
-  <input type="password" name="contraseña" [(ngModel)]="clave" placeholder="Contraseña" required />
-  <button type="submit" [disabled]="loginForm.invalid">Ingresar</button>
+  <!-- Username -->
+  <div class="flex flex-col gap-2">
+    <label for="correo">Correo</label>
+    <input 
+      pInputText 
+      id="correo" 
+      type="email" 
+      name="correo" 
+      [(ngModel)]="correo" 
+      placeholder="Correo" 
+      required 
+      class="p-inputtext w-full"
+    />
+  </div>
+
+  <!-- Password -->
+  <div class="flex flex-col gap-2">
+    <label for="clave">Contraseña</label>
+    <input 
+      pInputText 
+      id="clave" 
+      type="password" 
+      name="contraseña" 
+      [(ngModel)]="clave" 
+      placeholder="Contraseña" 
+      required 
+      class="p-inputtext w-full"
+    />
+  </div>
+
+  <!-- Submit Button -->
+  <div class="flex justify-center mt-3">
+    <p-button 
+      label="Ingresar" 
+      icon="pi pi-user" 
+      type="submit" 
+      [disabled]="loginForm.invalid" 
+      class="w-full max-w-[17.35rem]"
+    ></p-button>
+  </div>
+
+  <!-- Divider OR -->
+  <div class="flex justify-center mt-4">
+    <p-divider layout="horizontal" align="center"><b>OR</b></p-divider>
+  </div>
+
+  <!-- Alternative Button (Sign Up) -->
+  <div class="flex justify-center mt-4">
+    <p-button 
+      label="Sign Up" 
+      icon="pi pi-user-plus" 
+      severity="success" 
+      class="w-full max-w-[17.35rem]"
+    ></p-button>
+  </div>
 </form>
