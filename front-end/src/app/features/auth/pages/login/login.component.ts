@@ -50,4 +50,8 @@ export class LoginComponent {
       });
     }
   }
+
+  registersubmit(){
+    this.router.navigate(['/register']);
+  }
 }
