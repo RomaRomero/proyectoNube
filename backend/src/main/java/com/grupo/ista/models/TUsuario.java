@@ -1,6 +1,6 @@
 package com.grupo.ista.models;
 
-import java.util.List;
+
 import jakarta.persistence.*;
 import lombok.*;
 
