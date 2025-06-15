@@ -60,3 +60,29 @@
 2025-06-15 17:37:33 DEBUG [HikariPool-1:housekeeper] com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - keepalive: connection org.postgresql.jdbc.PgConnection@30ceac0a is alive
 2025-06-15 17:37:35 DEBUG [HikariPool-1:housekeeper] com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - keepalive: connection org.postgresql.jdbc.PgConnection@75cc2cd7 is alive
 2025-06-15 17:37:38 DEBUG [HikariPool-1:housekeeper] com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - keepalive: connection org.postgresql.jdbc.PgConnection@54afef15 is alive
+2025-06-15 17:37:40 DEBUG [HikariPool-1:housekeeper] com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - keepalive: connection org.postgresql.jdbc.PgConnection@50e15345 is alive
+2025-06-15 17:37:43 DEBUG [HikariPool-1:housekeeper] com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - keepalive: connection org.postgresql.jdbc.PgConnection@4b59e610 is alive
+2025-06-15 17:37:46 DEBUG [HikariPool-1:housekeeper] com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - keepalive: connection org.postgresql.jdbc.PgConnection@1b41fb2 is alive
+2025-06-15 17:37:49 DEBUG [HikariPool-1:housekeeper] com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Pool stats (total=10/10, idle=10/10, active=0, waiting=0)
+2025-06-15 17:37:49 DEBUG [HikariPool-1:housekeeper] com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Fill pool skipped, pool has sufficient level or currently being filled.
+2025-06-15 17:38:18 INFO  [SpringApplicationShutdownHook] o.s.b.w.e.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+2025-06-15 17:38:19 INFO  [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown - Graceful shutdown complete
+2025-06-15 17:38:19 INFO  [SpringApplicationShutdownHook] o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-06-15 17:38:19 DEBUG [SpringApplicationShutdownHook] o.h.internal.SessionFactoryImpl - HHH000031: Closing
+2025-06-15 17:38:19 DEBUG [SpringApplicationShutdownHook] o.h.type.spi.TypeConfiguration$Scope - Un-scoping TypeConfiguration [org.hibernate.type.spi.TypeConfiguration$Scope@286daf1e] from SessionFactory [org.hibernate.internal.SessionFactoryImpl@d37a1a4]
+2025-06-15 17:38:19 DEBUG [SpringApplicationShutdownHook] o.h.s.i.AbstractServiceRegistryImpl - Implicitly destroying ServiceRegistry on de-registration of all child ServiceRegistries
+2025-06-15 17:38:19 DEBUG [SpringApplicationShutdownHook] o.h.b.r.i.BootstrapServiceRegistryImpl - Implicitly destroying Boot-strap registry on de-registration of all child ServiceRegistries
+2025-06-15 17:38:19 INFO  [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2025-06-15 17:38:19 DEBUG [SpringApplicationShutdownHook] com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Before shutdown stats (total=10/10, idle=10/10, active=0, waiting=0)
+2025-06-15 17:38:19 DEBUG [HikariPool-1:connection-closer] com.zaxxer.hikari.pool.PoolBase - HikariPool-1 - Closing connection org.postgresql.jdbc.PgConnection@1b41fb2: (connection evicted)
+2025-06-15 17:38:19 DEBUG [HikariPool-1:connection-closer] com.zaxxer.hikari.pool.PoolBase - HikariPool-1 - Closing connection org.postgresql.jdbc.PgConnection@75cc2cd7: (connection evicted)
+2025-06-15 17:38:19 DEBUG [HikariPool-1:connection-closer] com.zaxxer.hikari.pool.PoolBase - HikariPool-1 - Closing connection org.postgresql.jdbc.PgConnection@30ceac0a: (connection evicted)
+2025-06-15 17:38:19 DEBUG [HikariPool-1:connection-closer] com.zaxxer.hikari.pool.PoolBase - HikariPool-1 - Closing connection org.postgresql.jdbc.PgConnection@150a1312: (connection evicted)
+2025-06-15 17:38:19 DEBUG [HikariPool-1:connection-closer] com.zaxxer.hikari.pool.PoolBase - HikariPool-1 - Closing connection org.postgresql.jdbc.PgConnection@50e15345: (connection evicted)
+2025-06-15 17:38:19 DEBUG [HikariPool-1:connection-closer] com.zaxxer.hikari.pool.PoolBase - HikariPool-1 - Closing connection org.postgresql.jdbc.PgConnection@6b26b116: (connection evicted)
+2025-06-15 17:38:19 DEBUG [HikariPool-1:connection-closer] com.zaxxer.hikari.pool.PoolBase - HikariPool-1 - Closing connection org.postgresql.jdbc.PgConnection@4b59e610: (connection evicted)
+2025-06-15 17:38:19 DEBUG [HikariPool-1:connection-closer] com.zaxxer.hikari.pool.PoolBase - HikariPool-1 - Closing connection org.postgresql.jdbc.PgConnection@e0efeea: (connection evicted)
+2025-06-15 17:38:19 DEBUG [HikariPool-1:connection-closer] com.zaxxer.hikari.pool.PoolBase - HikariPool-1 - Closing connection org.postgresql.jdbc.PgConnection@54afef15: (connection evicted)
+2025-06-15 17:38:19 DEBUG [HikariPool-1:connection-closer] com.zaxxer.hikari.pool.PoolBase - HikariPool-1 - Closing connection org.postgresql.jdbc.PgConnection@a5f4a97: (connection evicted)
+2025-06-15 17:38:19 DEBUG [SpringApplicationShutdownHook] com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - After  shutdown stats (total=0/10, idle=0/10, active=0, waiting=0)
+2025-06-15 17:38:19 INFO  [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
