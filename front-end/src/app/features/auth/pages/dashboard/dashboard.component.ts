@@ -1,15 +1,3 @@
-<<<<<<< HEAD
-import { Component } from '@angular/core';
-
-@Component({
-  selector: 'app-dashboard',
-  imports: [],
-  templateUrl: './dashboard.component.html',
-  styleUrl: './dashboard.component.css'
-})
-export class DashboardComponent {
-
-=======
 import { Component, OnInit } from '@angular/core';
 import {jwtDecode} from 'jwt-decode';
 import { AuthService } from '../../../../core/services/auth.service';
@@ -35,5 +23,4 @@ export class DashboardComponent implements OnInit {
       this.rol = decoded.rol || null;
     }
   }
->>>>>>> 0c42804e2ffd44638b7cb65015cc5ab9d2b6d034
 }

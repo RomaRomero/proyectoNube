@@ -5,11 +5,7 @@ import com.grupo.ista.models.LoginResponse;
 import com.grupo.ista.models.RegistroDTO;
 import com.grupo.ista.models.TRol;
 import com.grupo.ista.models.TUsuario;
-<<<<<<< HEAD
-import com.grupo.ista.services.UsuarioService;
-=======
 import com.grupo.ista.repositories.UsuarioRepository;
->>>>>>> 0c42804e2ffd44638b7cb65015cc5ab9d2b6d034
 import com.grupo.ista.util.JwtUtil;
 import com.grupo.ista.repositories.RolRepository;
 
@@ -18,12 +14,8 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-<<<<<<< HEAD
-import org.springframework.security.authentication.*;
-=======
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
->>>>>>> 0c42804e2ffd44638b7cb65015cc5ab9d2b6d034
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
@@ -31,10 +23,6 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/auth")
-<<<<<<< HEAD
-@CrossOrigin(origins = "http://localhost:4200")
-=======
->>>>>>> 0c42804e2ffd44638b7cb65015cc5ab9d2b6d034
 public class AuthController {
 
         @Autowired
@@ -53,19 +41,6 @@ public class AuthController {
     private PasswordEncoder passwordEncoder;
 
 @PostMapping("/login")
-<<<<<<< HEAD
-public ResponseEntity<?> login(@RequestBody TUsuario request) {
-    try {
-        authManager.authenticate(
-            new UsernamePasswordAuthenticationToken(request.getCorreo(), request.getClave())
-        );
-        String token = jwtUtil.generarToken(request.getCorreo());
-        return ResponseEntity.ok(token);
-    } catch (BadCredentialsException ex) {
-        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Credenciales incorrectas");
-    } catch (Exception ex) {
-        return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Error: " + ex.getMessage());
-=======
 public ResponseEntity<?> login(@RequestBody LoginRequest request) {
     try {
         authenticationManager.authenticate(
@@ -84,21 +59,11 @@ public ResponseEntity<?> login(@RequestBody LoginRequest request) {
     } catch (Exception e) {
         e.printStackTrace();  
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Credenciales inválidas");
->>>>>>> 0c42804e2ffd44638b7cb65015cc5ab9d2b6d034
     }
 }
 
 
 
-<<<<<<< HEAD
-    @PostMapping("/register")
-    public ResponseEntity<?> registrar(@RequestBody TUsuario usuario) {
-        usuario.setClave(passwordEncoder.encode(usuario.getClave()));
-        TUsuario registrado = usuarioService.registrarUsuario(usuario);
-        return ResponseEntity.status(201).body(registrado);
-    }
-}
-=======
 @PostMapping("/register")
 public ResponseEntity<?> register(@RequestBody RegistroDTO request) {
     if (usuarioRepository.existsByCorreo(request.getCorreo())) {
@@ -126,4 +91,3 @@ public ResponseEntity<?> register(@RequestBody RegistroDTO request) {
 
 
 }
->>>>>>> 0c42804e2ffd44638b7cb65015cc5ab9d2b6d034
