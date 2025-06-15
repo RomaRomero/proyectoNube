@@ -1,57 +1,54 @@
 import { Injectable } from '@angular/core';
-import { Messaging, getToken, onMessage } from '@angular/fire/messaging';
-import { Observable } from 'rxjs';
-import { catchError } from 'rxjs/operators';
-import { environment } from '../../../environments/environment';  // Importar el archivo environment.ts
-
+import { initializeApp } from 'firebase/app';
+import { getMessaging, getToken, onMessage, Messaging } from 'firebase/messaging';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PushNotificationService {
+  private messaging: Messaging;
+  private vapidKey = environment.firebaseConfig.vapidKey;
 
-    private apiKey: string = environment.apiKey;  // Aquí tomamos la API Key desde environment.ts
-  private apiUrlMicroservice: string = environment.apiUrlMicroservice; 
-  constructor(private afMessaging: Messaging) { }
 
-  // Solicitar permiso para recibir notificaciones
-  requestPermission(): Observable<string> {
-    return new Observable<string>((observer) => {
-      // Solicitar el token de Firebase para las notificaciones push
-      getToken(this.afMessaging, {
-        vapidKey: this.apiKey // VAPID key para FCM (reemplázalo con tu propia clave)
-      }).then((token: string | null) => {
-        if (token) {
-          console.log('Notification token:', token);
-          observer.next(token);  // Devuelve el token
-          observer.complete(); // Marca el observable como completo
-        } else {
-          console.error('No se pudo obtener el token');
-          observer.error('No se pudo obtener el token'); // En caso de error
-        }
-      }).catch((error) => {
-        console.error('Permission request failed:', error);
-        observer.error(error); // En caso de error
-      });
-    }).pipe(
-      catchError((error) => {
-        console.error('Error al obtener token', error);
-        throw error; // Propaga el error
-      })
-    );
+  constructor() {
+    // Inicializar Firebase una sola vez
+    const app = initializeApp(environment.firebaseConfig);
+    this.messaging = getMessaging(app);
   }
 
-  // Escuchar mensajes de Firebase
-  receiveMessage(): Observable<any> {
-    return new Observable<any>((observer) => {
-      // Escuchar los mensajes entrantes desde Firebase
-      const unsubscribe = onMessage(this.afMessaging, (payload) => {
-        console.log('Mensaje recibido:', payload);
-        observer.next(payload);  // Devuelve el mensaje recibido
+  async requestPermission(): Promise<string | null> {
+    try {
+      // Asegúrate que el Service Worker esté activo
+      const registration = await navigator.serviceWorker.ready;
+      console.log('✅ Service Worker listo:', registration);
+      console.log('🔔 Solicitando permisos para notificaciones...')
+      console.log('🔔 que dice messagin:', this.messaging);
+      console.log('🔔 que dice vapidKey:', this.vapidKey);
+
+      // Obtener el token con VAPID Key y SW
+      const token = await getToken(this.messaging, {
+        vapidKey: this.vapidKey,
+        serviceWorkerRegistration: registration,
       });
 
-      // Cuando el observable se desuscribe, limpia el listener
-      return () => unsubscribe();
+      if (token) {
+        console.log('✅ Token FCM:', token);
+        return token;
+      } else {
+        console.warn('⚠️ No se recibió token, el usuario no aceptó permisos.');
+        return null;
+      }
+    } catch (error) {
+      console.error('❌ No se pudo obtener el token FCM', error);
+      throw error;
+    }
+  }
+
+  listenToMessages(): void {
+    onMessage(this.messaging, (payload) => {
+      console.log('📩 Mensaje recibido en primer plano:', payload);
+      // Aquí puedes emitir este mensaje a un Subject o mostrar una notificación
     });
   }
 }
