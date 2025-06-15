@@ -41,6 +41,14 @@ public class JwtAuthFilter extends OncePerRequestFilter {
             return;
         }
 
+        String path = request.getRequestURI();
+
+        // Excluir rutas públicas del filtro
+        if (path.startsWith("/api/auth") || path.startsWith("/swagger") || path.startsWith("/v3/api-docs")) {
+            filterChain.doFilter(request, response);
+            return;
+        }
+
         final String authHeader = request.getHeader("Authorization");
 
         if (authHeader != null && authHeader.startsWith("Bearer ")) {
@@ -49,6 +57,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
 
             if (correo != null && SecurityContextHolder.getContext().getAuthentication() == null) {
                 UserDetails userDetails = userDetailsService.loadUserByUsername(correo);
+
                 if (jwtUtil.validarToken(token)) {
                     UsernamePasswordAuthenticationToken authToken =
                             new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
