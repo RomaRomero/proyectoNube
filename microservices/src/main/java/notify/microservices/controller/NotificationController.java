@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 @RestController
 @RequestMapping("/api/notify")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class NotificationController {
 
     @Autowired

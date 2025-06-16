@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, tap } from 'rxjs';
+import { environment } from '../../../environments/environment';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-  private apiUrl = 'http://localhost:7000/api/auth';
+  private apiUrl = `${environment.apiUrl}`;
   private tokenKey = 'auth_token'; // Clave para almacenar el token en localStorage
 
   constructor(private http: HttpClient) {}
@@ -50,6 +51,15 @@ export class AuthService {
     const token = this.getToken();
     return new HttpHeaders({
       'Authorization': `Bearer ${token}`
+    });
+  }
+    sendNotification(data: { token: string; title: string; body: string }) {
+    return this.http.post(`${environment.apiUrlMicroservice}/notify/push`, null, {
+      params: {
+        token: data.token,
+        title: data.title,
+        body: data.body
+      }
     });
   }
 }
