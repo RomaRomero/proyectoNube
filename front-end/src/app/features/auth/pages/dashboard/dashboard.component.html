@@ -1,34 +1,33 @@
-<div class="dashboard-container">
-  <h2>Bienvenido al Panel Principal</h2>
+<div class="dashboard-wrapper">
+  <div class="dashboard-card">
+    <h2 class="dashboard-title">  Bienvenido {{ nombre }}</h2>
 
-  <!-- Panel para ADMINISTRADOR -->
-  <div *ngIf="rol === 'ADMINISTRADOR'" class="dashboard-panel admin">
-    <h3>Módulo Administrador</h3>
-    <ul>
-      <li><a routerLink="/admin/registrar-usuarios">Registrar Usuarios</a></li>
-      <li><a routerLink="/admin/asignar-rutinas">Asignar Rutinas</a></li>
-      <li><a routerLink="/admin/asignar-entrenador">Asignar Entrenador</a></li>
-    </ul>
-  </div>
+    <div *ngIf="rol === 'ADMINISTRADOR'">
+      <ul class="dashboard-options">
+        <li><a href="#">Registrar Usuarios</a></li>
+        <li><a href="#">Asignar Rutinas</a></li>
+        <li><a href="#">Asignar Entrenador</a></li>
+      </ul>
+    </div>
 
-  <!-- Panel para ENTRENADOR -->
-  <div *ngIf="rol === 'ENTRENADOR'" class="dashboard-panel trainer">
-    <h3>Módulo Entrenador</h3>
-    <ul>
-      <li><a routerLink="/entrenador/asignar-rutinas">Asignar Rutinas a Usuarios</a></li>
-    </ul>
-  </div>
+    <div *ngIf="rol === 'ENTRENADOR'">
+      <h3 class="dashboard-section-title">Módulo Entrenador</h3>
+      <ul class="dashboard-options">
+        <li><a href="#">Asignar Rutinas a Usuarios</a></li>
+      </ul>
+    </div>
 
-  <!-- Panel para USUARIO -->
-  <div *ngIf="rol === 'USUARIO'" class="dashboard-panel user">
-    <h3>Mis Rutinas</h3>
-    <ul>
-      <li><a routerLink="/usuario/mis-rutinas">Ver Rutinas Asignadas</a></li>
-    </ul>
-  </div>
+    <div *ngIf="rol === 'USUARIO'">
+      <h3 class="dashboard-section-title">Mis Rutinas</h3>
+      <ul class="dashboard-options">
+        <li><a href="#">Ver Rutina Semanal</a></li>
+        <li><a href="#">Registro Diario</a></li>
+        <li><a href="#">Estadísticas</a></li>
+      </ul>
+    </div>
 
-  <!-- Mensaje si no hay rol reconocido -->
-  <div *ngIf="!rol" class="alert alert-warning">
-    No se ha podido determinar el rol del usuario.
+    <div *ngIf="!rol">
+      <p>No se ha podido determinar el rol del usuario.</p>
+    </div>
   </div>
 </div>
