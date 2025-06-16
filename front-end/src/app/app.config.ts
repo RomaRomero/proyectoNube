@@ -4,11 +4,10 @@ import { routes } from './app.routes';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
-import { providePrimeNG } from 'primeng/config';
-import Aura from '@primeng/themes/aura';
+//import { providePrimeNG } from 'primeng/config';
 import { provideFirebaseApp, initializeApp } from '@angular/fire/app';  // Import Firebase
 import { provideMessaging, getMessaging } from '@angular/fire/messaging';  // Firebase Messaging
-import { FirebaseApp } from '@angular/fire/app';
+//import { FirebaseApp } from '@angular/fire/app';
 import { PushNotificationService } from './core/services/push.notification.service';  // Tu servicio de notificaciones push
 import { environment } from '../environments/environment';
 import { EnvironmentProviders, makeEnvironmentProviders, NgZone } from '@angular/core';
@@ -21,11 +20,11 @@ export const appConfig: ApplicationConfig = {
       HttpClientModule,
       FormsModule,
     ), provideAnimationsAsync(),
-    providePrimeNG({
-      theme: {
-        preset: Aura
-      }
-    }),
+    //providePrimeNG({
+    //  theme: {
+    //    preset: Aura
+    //  }
+    //}),
 
     // Inicializar Firebase con la configuración de environment.ts
     provideFirebaseApp(() => initializeApp(environment.firebaseConfig)),
