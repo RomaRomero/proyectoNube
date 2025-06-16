@@ -9,7 +9,7 @@ firebase.initializeApp({
     appId: "",
 });
 
-// Inicializa Firebase
+// Inicializa Firebas
 const messaging = firebase.messaging();
 
 messaging.onBackgroundMessage(function(payload) {
