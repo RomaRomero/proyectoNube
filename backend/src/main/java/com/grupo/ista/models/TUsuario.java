@@ -1,7 +1,6 @@
 package com.grupo.ista.models;
 
 import java.util.List;
-
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -20,10 +19,9 @@ public class TUsuario {
     private String correo;
     private String clave;
 
-    @ManyToMany
-    @JoinTable(name = "usuario_rol",
-            joinColumns = @JoinColumn(name = "usuario_id"),
-            inverseJoinColumns = @JoinColumn(name = "rol_id"))
-    private List<TRol> roles;
+    @ManyToOne
+    @JoinColumn(name = "rol_id")
+    private TRol rol;
 
 }
+

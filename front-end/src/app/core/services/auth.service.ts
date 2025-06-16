@@ -1,35 +1,55 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Router } from '@angular/router';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable, tap } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-  private baseUrl = 'http://localhost:7000/api/auth';
+  private apiUrl = 'http://localhost:7000/api/auth';
+  private tokenKey = 'auth_token'; // Clave para almacenar el token en localStorage
 
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(private http: HttpClient) {}
 
-  login(data: any) {
-    return this.http.post(`${this.baseUrl}/login`, data, { responseType: 'text' });
+  // Método para iniciar sesión
+  login(email: string, password: string): Observable<string> {
+    return this.http.post<string>(
+      `${this.apiUrl}/login`,
+      { correo: email, clave: password },
+      { responseType: 'text' as 'json' } // Indica que la respuesta es texto plano (el token)
+    ).pipe(
+      tap(token => this.saveToken(token)) // Guarda el token al recibirlo
+    );
   }
 
-register(data: any) {
-  return this.http.post(`${this.baseUrl}/register`, data);
-}
-
-  guardarToken(token: string) {
-    localStorage.setItem('token', token);
+  // Método para registrar un nuevo usuario
+  register(usuario: any): Observable<any> {
+    return this.http.post(`${this.apiUrl}/register`, usuario);
   }
 
-  obtenerToken(): string | null {
-    return localStorage.getItem('token');
+  // Almacenar el token en localStorage
+  private saveToken(token: string): void {
+    localStorage.setItem(this.tokenKey, token);
   }
 
-  estaAutenticado(): boolean {
-    return !!this.obtenerToken();
+  // Obtener el token almacenado
+  getToken(): string | null {
+    return localStorage.getItem(this.tokenKey);
   }
 
-  logout() {
-    localStorage.removeItem('token');
-    this.router.navigate(['/login']);
+  // Verificar si el usuario está autenticado
+  isLoggedIn(): boolean {
+    return !!this.getToken();
+  }
+
+  // Cerrar sesión (eliminar el token)
+  logout(): void {
+    localStorage.removeItem(this.tokenKey);
+  }
+
+  // Agregar el token a las cabeceras HTTP
+  getAuthHeaders(): HttpHeaders {
+    const token = this.getToken();
+    return new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
   }
 }

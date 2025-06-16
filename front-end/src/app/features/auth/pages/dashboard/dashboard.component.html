@@ -1,2 +1,34 @@
-<h1>Bienvenido al Panel de Actividades</h1>
-<p>Este es un dashboard protegido con JWT.</p>
+<div class="dashboard-container">
+  <h2>Bienvenido al Panel Principal</h2>
+
+  <!-- Panel para ADMINISTRADOR -->
+  <div *ngIf="rol === 'ADMINISTRADOR'" class="dashboard-panel admin">
+    <h3>Módulo Administrador</h3>
+    <ul>
+      <li><a routerLink="/admin/registrar-usuarios">Registrar Usuarios</a></li>
+      <li><a routerLink="/admin/asignar-rutinas">Asignar Rutinas</a></li>
+      <li><a routerLink="/admin/asignar-entrenador">Asignar Entrenador</a></li>
+    </ul>
+  </div>
+
+  <!-- Panel para ENTRENADOR -->
+  <div *ngIf="rol === 'ENTRENADOR'" class="dashboard-panel trainer">
+    <h3>Módulo Entrenador</h3>
+    <ul>
+      <li><a routerLink="/entrenador/asignar-rutinas">Asignar Rutinas a Usuarios</a></li>
+    </ul>
+  </div>
+
+  <!-- Panel para USUARIO -->
+  <div *ngIf="rol === 'USUARIO'" class="dashboard-panel user">
+    <h3>Mis Rutinas</h3>
+    <ul>
+      <li><a routerLink="/usuario/mis-rutinas">Ver Rutinas Asignadas</a></li>
+    </ul>
+  </div>
+
+  <!-- Mensaje si no hay rol reconocido -->
+  <div *ngIf="!rol" class="alert alert-warning">
+    No se ha podido determinar el rol del usuario.
+  </div>
+</div>

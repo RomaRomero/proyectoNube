@@ -1,58 +1,45 @@
-<h2>Login</h2>
-<form (ngSubmit)="login()" #loginForm="ngForm">
-  <!-- Username -->
-  <div class="flex flex-col gap-2">
-    <label for="correo">Correo</label>
-    <input 
-      pInputText 
-      id="correo" 
-      type="email" 
-      name="correo" 
-      [(ngModel)]="correo" 
-      placeholder="Correo" 
-      required 
-      class="p-inputtext w-full"
-    />
-  </div>
+<div class="login-container">
+  <div class="login-box">
+    <h2>Iniciar Sesión</h2>
 
-  <!-- Password -->
-  <div class="flex flex-col gap-2">
-    <label for="clave">Contraseña</label>
-    <input 
-      pInputText 
-      id="clave" 
-      type="password" 
-      name="contraseña" 
-      [(ngModel)]="clave" 
-      placeholder="Contraseña" 
-      required 
-      class="p-inputtext w-full"
-    />
-  </div>
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      <!-- Email -->
+      <div class="input-group">
+        <label>Email</label>
+        <input type="email" formControlName="email"
+          [ngClass]="{ 'is-invalid': loginForm.get('email')?.invalid && loginForm.get('email')?.touched }" />
+        <div *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.touched" class="error-message">
+          Email requerido y válido
+        </div>
+      </div>
 
-  <!-- Submit Button -->
-  <div class="flex justify-center mt-3">
-    <p-button 
-      label="Ingresar" 
-      icon="pi pi-user" 
-      type="submit" 
-      [disabled]="loginForm.invalid" 
-      class="w-full max-w-[17.35rem]"
-    ></p-button>
-  </div>
+      <!-- Contraseña -->
+      <div class="input-group">
+        <label>Contraseña</label>
+        <input type="password" formControlName="password"
+          [ngClass]="{ 'is-invalid': loginForm.get('password')?.invalid && loginForm.get('password')?.touched }" />
+        <div *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched" class="error-message">
+          Contraseña requerida
+        </div>
+      </div>
 
-  <!-- Divider OR -->
-  <div class="flex justify-center mt-4">
-    <p-divider layout="horizontal" align="center"><b>OR</b></p-divider>
-  </div>
+      <!-- Error general -->
+      <div *ngIf="errorMessage" class="alert-danger">
+        {{ errorMessage }}
+      </div>
 
-  <!-- Alternative Button (Sign Up) -->
-  <div class="flex justify-center mt-4">
-    <p-button 
-      label="Sign Up" 
-      icon="pi pi-user-plus" 
-      severity="success" 
-      class="w-full max-w-[17.35rem]"
-    ></p-button>
+      <!-- Botón -->
+      <button type="submit" [disabled]="loginForm.invalid || loading">
+        <span *ngIf="loading" class="spinner"></span>
+        Ingresar
+      </button>
+
+      <!-- Registro -->
+      <div class="register-link">
+        ¿No tienes cuenta?
+        <a (click)="registersubmit()">Regístrate aquí</a>
+      </div>
+
+    </form>
   </div>
-</form>
+</div>
