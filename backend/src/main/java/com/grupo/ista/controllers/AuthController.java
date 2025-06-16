@@ -50,9 +50,12 @@ public ResponseEntity<?> login(@RequestBody LoginRequest request) {
             )
         );
 
+            TUsuario usuario = usuarioRepository.findByCorreo(request.getCorreo())
+                .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+
         System.out.println(" Autenticado correctamente: " + request.getCorreo());
 
-        String token = jwtUtil.generarToken(request.getCorreo());
+        String token = jwtUtil.generarToken(request.getCorreo(),usuario.getNombre());
         System.out.println(" Token generado: " + token);
 
         return ResponseEntity.ok(new LoginResponse(token));
